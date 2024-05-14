@@ -12,7 +12,7 @@
 
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                   <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                    <h6 class="text-white text-capitalize ps-3">Techpack: <%= techpack.id %>
+                    <h6 class="text-white text-capitalize ps-3">Item : <%= techpack.id %>
                     </h6> 
                   </div>
                 </div>
@@ -89,13 +89,29 @@
                         <textarea type="text" disabled class="form-control" name="description"
                           placeholder="description"><%= techpack.description %></textarea>
                       </div>
-                      <%if(techpack.status!=0) {%>
-                      <div class="input-group input-group-outline mb-3 is-filled">
-                        <label class="form-label">reason</label>
-                        <textarea type="text" disabled class="form-control" name="reason"
-                          placeholder="reason"><%= techpack.reason %></textarea>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="input-group input-group-outline mb-3 is-filled">
+                            <label class="form-label">Garment factory</label>
+                            <input type="text" class="form-control" id="Garment" name="created" disabled value="<%= techpack.createdAt %>">
+                          
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="input-group input-group-outline mb-3 is-filled ">
+                            <label class="form-label">Embroidery factory</label>
+                            <input type="text" class="form-control" id="Embroidery" name="created" disabled value="<%= techpack.createdAt %>">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="input-group input-group-outline mb-3 is-filled ">
+                            <label class="form-label">Print factory</label>
+                            <input type="text" class="form-control" id="Print" name="updated" disabled value="<%= techpack.updatedAt %>">
+                          </div>
+                        </div>
                       </div>
-                      <%}%>
                       <div class="row">
                         <div class="col-md-4">
                           <div class="input-group input-group-outline mb-3 is-filled">
@@ -105,7 +121,7 @@
                              if (techpack.status==1) { %> confirmed <% } else
                               if (techpack.status==2) { %> processing <% } else
                                if (techpack.status==3) { %> product <% } 
-                               else if(techpack.status==4) { %> draft <% }  %>
+                               else { %> draft <% }  %>
                               ">
                           </div>
                         </div>

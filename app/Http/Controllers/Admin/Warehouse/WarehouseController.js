@@ -2,11 +2,26 @@ const db = require('../../../../../models');
 const { validationResult } = require('express-validator');
 
 exports.index = async (req, resp, next) => {
-    await db.Warehouse.findAll()
+    await db.Techpack.findAll( {
+        where: {
+            status: {
+                [db.Sequelize.Op.eq]: 3,
+            }
+        },
+        include: [
+            {
+                model: db.TechpackCategory,
+                as: 'category'
+            },
+            {
+                model: db.TechpackSubCategory,
+                as: 'sub_category'
+            }]
+    })
     .then((result) => {
         console.log('Warehouse Controller',result);
         resp.render('dashboard/admin/warehouse/index',{
-            warehouseList: result,
+            techpackList: result,
             pageTitle: 'Warehouse'
         });        
     })
@@ -14,6 +29,47 @@ exports.index = async (req, resp, next) => {
         throw new Error(error);
     });
 } 
+exports.detail = async (req, resp, next) => {
+    await db.Techpack.findByPk(req.params.id, {
+        include: [
+            {
+                model: db.TechpackCategory,
+                as: 'category'
+            },
+            {
+                model: db.TechpackSubCategory,
+                as: 'sub_category'
+            },
+            {
+                model: db.TechpackCloth,
+                as: 'cloth'
+            },
+            {
+                model: db.User,
+                as: 'createby'
+            },
+            {
+                model: db.User,
+                as: 'confirmby'
+            },
+            {
+                model: db.TechpackHistory,
+                as: 'history'
+            }
+        ]
+    })
+        .then((result) => {
+            resp.render('dashboard/admin/warehouse/detail', {
+                history:result.history,
+                techpack: result,
+                pageTitle: 'Warehouse'
+            });
+        })
+        .catch((error) => {
+           // historyLogged(req.session.username,'load item',LogConstant.FAILED,error.message );
+            throw new Error(error);
+        });
+}
 
 exports.create = (req, resp, next) =>{
     resp.render('dashboard/admin/warehouse/create',{

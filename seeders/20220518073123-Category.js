@@ -3,10 +3,9 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-     await queryInterface.bulkInsert('techpackcloths', [{
+     await queryInterface.bulkInsert('techpackcategories', [{
         name: 'Cate1',
         code: 'C1',
-        type:'category',
         description: 'body',
         createdAt: new Date(),
         updatedAt: new Date()
@@ -14,7 +13,6 @@ module.exports = {
       {
         name: 'sub-cate',
         code: 'S1',
-        type:'sub-category',
         description: 'cloth1',
         createdAt: new Date(),
         updatedAt: new Date()
@@ -22,6 +20,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-     await queryInterface.bulkDelete('techpackcloths', null, {});
+     await queryInterface.bulkDelete('techpackcategories', null, {});
   }
 };

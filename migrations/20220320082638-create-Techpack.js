@@ -63,6 +63,9 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
+      SKU: {
+        type: Sequelize.STRING
+      },
       seasion: {
         type: Sequelize.STRING
       },
@@ -84,6 +87,9 @@ module.exports = {
       status: {
         type: Sequelize.INTEGER,
         defaultValue: 0
+      }, 
+      reason: {
+        type: Sequelize.STRING,
       },    
       createdAt: {
         allowNull: false,

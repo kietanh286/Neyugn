@@ -1,0 +1,16 @@
+.notification-badge {
+  background-color: #f55b4a;
+  color: #fff;
+  border-radius: 30px;
+  padding: 1px 6px;
+  font-size: 10px;
+  text-transform: uppercase;
+  height: 14px;
+  right: 5%;
+  top: 0px;
+  position: absolute;
+  font-weight: 700;
+  text-shadow: none;
+  display: flex;
+  align-items: center
+}

@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'categoryId',
         as : 'category'
       });
-      models.Techpack.belongsTo(models.TechpackCategory, {
+      models.Techpack.belongsTo(models.TechpackSubCategory, {
         foreignKey: 'sub_categoryId',
         as : 'sub_category'
       });
@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'stockId',
         otherKey: 'techpackId' 
       });
+      models.Techpack.hasMany(models.TechpackHistory, {
+        foreignKey: 'techpackId',
+        as :'history'
+      });
     }
   }
   Techpack.init({
@@ -51,12 +55,14 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.INTEGER,
     name: DataTypes.STRING,
     seasion: DataTypes.STRING,
+    SKU: DataTypes.STRING,
     status: DataTypes.INTEGER,
     b_image: DataTypes.STRING,
     a_image: DataTypes.STRING,
     f_image: DataTypes.STRING,
     description: DataTypes.STRING,
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    reason: DataTypes.STRING
   }, {
     sequelize,
     timestamps: true,
