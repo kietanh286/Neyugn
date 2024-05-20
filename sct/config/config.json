@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "nodeadmin",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "admin-key":"123123"
+  },
+  "test": {
+    "username": "root",
+    "password": "Vuchungbt00",
+    "database": "nodeadmin",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "admin-key":"123123"
+  },
+  "production": {
+    "username": "root",
+    "password": "Vuchungbt00",
+    "database": "nodeadmin",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "admin-key":"123123"
+  }
+}
