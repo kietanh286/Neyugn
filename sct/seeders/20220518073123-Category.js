@@ -4,16 +4,16 @@ module.exports = {
   async up (queryInterface, Sequelize) {
 
      await queryInterface.bulkInsert('techpackcategories', [{
-        name: 'Cate1',
-        code: 'C1',
-        description: 'body',
+        name: 'TOP',
+        code: 'TO',
+        description: 'Thân Trên',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'sub-cate',
-        code: 'S1',
-        description: 'cloth1',
+        name: 'BOTTOM',
+        code: 'BO',
+        description: 'Thân dưới',
         createdAt: new Date(),
         updatedAt: new Date()
       }], {});
