@@ -53,7 +53,7 @@
                                                         <td>
                                                             <%= element.typePayment %>
                                                         </td>
-                                                        <td>
+                                                        <td class="<%=element.status=='Cancel' ?'text-danger':'' %> <%=element.status=='Done' ?'text-info':'' %>">
                                                             <%= element.status %>
                                                         </td>
                                                         <td style="display: flex;">
@@ -63,7 +63,7 @@
                                                             <form action="invoice/delete/<%= element.id %>"
                                                                 method="POST">
                                                                 <button type="submit"
-                                                                    class="btn btn-sm btn-danger">Delete</button>
+                                                                    class="btn btn-sm btn-danger">X</button>
                                                             </form>
                                                         </td>
                                                     </tr>

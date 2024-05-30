@@ -5,7 +5,7 @@ exports.index = async (req, resp, next) => {
     await db.Techpack.findAll( {
         where: {
             status: {
-                [db.Sequelize.Op.eq]: 3,
+                [db.Sequelize.Op.eq]: 5,
             }
         },
         include: [
@@ -26,10 +26,32 @@ exports.index = async (req, resp, next) => {
         });        
     })
     .catch(error => {
-        throw new Error(error);
+        return resp.status(400).json({
+                status:400,
+                msg : 'Fill required value to all fields'
+            })
     });
 } 
 exports.detail = async (req, resp, next) => {
+
+    let processList = await db.TechpackProcess.findAll({
+        attributes: ['id','quantity', 'fee','groupID', 'duedate', 'completeddate', 'status', 'note', 'type', 'createdAt', 'techpackId', 'stockId'],
+        where: {
+            techpackId: req.params.id,
+        },
+        include:
+            [{
+                model: db.TechpackStock,
+                as: 'stockprocess'
+            },
+            {
+                model: db.Type
+
+            }]
+    }).then((processList) => {
+        return processList;
+    });
+
     await db.Techpack.findByPk(req.params.id, {
         include: [
             {
@@ -53,21 +75,41 @@ exports.detail = async (req, resp, next) => {
                 as: 'confirmby'
             },
             {
+                model: db.User,
+                as: 'verifyby'
+            },
+            {
                 model: db.TechpackHistory,
                 as: 'history'
             }
         ]
     })
         .then((result) => {
+            const groupedTP = processList.reduce((acc, user) => {
+                if (!acc[user.groupID]) {
+                    acc[user.groupID] = [];
+                }
+                acc[user.groupID].push(user);
+                return acc;
+            }, {});
+
+            const groups = Object.values(groupedTP);
+
+            
             resp.render('dashboard/admin/warehouse/detail', {
                 history:result.history,
                 techpack: result,
+                processList,
+                groups,
                 pageTitle: 'Warehouse'
             });
         })
         .catch((error) => {
            // historyLogged(req.session.username,'load item',LogConstant.FAILED,error.message );
-            throw new Error(error);
+            return resp.status(400).json({
+                status:400,
+                msg : 'Fill required value to all fields'
+            })
         });
 }
 
@@ -92,7 +134,10 @@ exports.edit = async (req, resp, next) =>{
         });  
     })
     .catch(() => {
-        throw new Error(error);
+        return resp.status(400).json({
+                status:400,
+                msg : 'Fill required value to all fields'
+            })
     });
 }
 
@@ -103,7 +148,10 @@ exports.store = (req, resp, next) =>{
         resp.status(200).redirect('/warehouse');
     })
     .catch((error) => {
-        throw new Error(error);
+        return resp.status(400).json({
+                status:400,
+                msg : 'Fill required value to all fields'
+            })
     });
 }
 
@@ -118,7 +166,10 @@ exports.update = (req, resp, next) =>{
         resp.status(200).redirect('/warehouse');
     })
     .catch(error => {
-        throw new Error(error);
+        return resp.status(400).json({
+                status:400,
+                msg : 'Fill required value to all fields'
+            })
     })
 }
 
@@ -133,6 +184,9 @@ exports.delete = async (req, resp, next) =>{
         resp.status(200).redirect('/warehouse');
     })
     .catch(error => {
-        throw new Error(error);
+        return resp.status(400).json({
+                status:400,
+                msg : 'Fill required value to all fields'
+            })
     })
 }

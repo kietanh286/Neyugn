@@ -5,15 +5,15 @@ module.exports = {
 
      await queryInterface.bulkInsert('techpackcloths', [{
         name: 'cotton',
-        code: 'CO',
-        description: 'Vải cotton',
+        code: 'cottonUS',
+        description: 'cloth1',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Jean',
-        code: 'JE',
-        description: 'vải Jean',
+        name: 'cloth-name',
+        code: 'cloth-code-1',
+        description: 'cloth1',
         createdAt: new Date(),
         updatedAt: new Date()
       }], {});
