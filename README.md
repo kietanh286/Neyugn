@@ -12,4 +12,9 @@ npx sequelize-cli db:seed:all
 
 npm start
  admin admin@admin.com - 123456qqq, for user user@user.com - 123456qqq
- 
+
+
+```sh
+cd sct
+docker compose -f docker-compose.yml -p "kiet-docker" up
+docker compose -f docker-compose-xampp.yml -p "kiet-docker" up
