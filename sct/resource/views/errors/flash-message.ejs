@@ -1,0 +1,26 @@
+<% if(message){ %>
+    <% if(message.success){ %>
+        <div class="text-white alert alert-success alert-dismissible fade show" role="alert">
+            <%= message.success %>
+        </div>
+    <% } %>
+
+    <% if(message.info){ %>
+        <div class="text-white alert alert-info alert-dismissible fade show" role="alert">
+            <%= message.info %>
+        </div>
+    <% } %>
+
+    <% if(message.error){ %>
+        <div class="text-white alert alert-danger alert-dismissible fade show" role="alert">
+            <%= message.error %>
+        </div>
+    <% } %>
+
+    <% if(message.warning){ %>
+        <div class="text-white alert alert-warning alert-dismissible fade show" role="alert">
+            <%= message.warning %>
+        </div>
+    <% } %>
+    
+<% } %>

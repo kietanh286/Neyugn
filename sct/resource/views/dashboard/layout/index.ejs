@@ -1,0 +1,324 @@
+<%- include('../common/header') %>
+  <%- include('../common/side-bar') %>
+
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+      <!-- Navbar -->
+      
+      <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+        navbar-scroll="true">
+        <div class="container-fluid py-1 px-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+              <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+              <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+            </ol>
+            <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+          </nav>
+          <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+
+            </div>
+            <ul class="navbar-nav  justify-content-end">
+              <li class="nav-item d-flex align-items-center">
+                <form action="/logout" method="post">
+                  <button type="submit" class="btn btn-sm btn-info">Logout</button>
+                </form>
+              </li>
+              <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                  <div class="sidenav-toggler-inner">
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item px-3 d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-body p-0">
+                  <span class="material-icons">
+                    settings
+                  </span>
+                </a>
+              </li>
+              <!--Here-->
+              <li class="nav-item dropdown pe-2 d-flex align-items-center ">
+                <a href="javascript:;" class="nav-link text-body" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="material-icons">
+                    notifications
+                  </i>
+                  <% if( count_notification.length>0) {%>
+                    <span id="notification_id" class="notification-badge">
+                      <%= count_notification.length %>
+                    </span>
+                    <% } %>
+                </a>
+                <% if(notification) {%>
+                  <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                    <% notification.forEach((element,key)=> { %>
+                      <li class="mb-2">
+                        <a class="dropdown-item border-radius-md" <% if (element.type=='techpack') {%>href="/techpack/detail/<%=element.data%>" <% }%>  href="javascript:;">
+                          <div class="d-flex py-1">
+
+                            <div class="my-auto ">
+                              <i
+                                class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl opacity-10">
+                                <i class="material-icons opacity-10 ">weekend</i> </i>
+                            </div>
+
+
+                            <div style="margin-left: 10px;" class="d-flex flex-column justify-content-center pl-1">
+                              <h6 class="text-sm font-weight-normal mb-1">
+                                <span class="font-weight-bold">
+                                  <%= element.content %> [ID:<%=element.data%>]
+                                </span>
+                              </h6>
+                              <p class="text-xs text-secondary mb-0">
+                                <i class="fa fa-clock me-1"></i>
+                                <%= element.createdAt %>
+                              </p>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                      <% }) %>
+                  </ul>
+                  <% } %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="container-fluid py-4">
+        <div class="row">
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div
+                  class="icon icon-lg icon-shape bg-gradient-info shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">person</i>
+                </div>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">Users</p>
+                  <h4 class="mb-0"><%=countDisable+countActive%></h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0">
+              <div class="card-footer p-3">
+                <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">Need verify: </span> <%=countDisable%> <span class="float-lg-end text-info text-sm font-weight-bolder">Active: <%=countActive%> </span>  </p>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div
+                  class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">weekend</i>
+                </div>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">Items</p>
+                  <h4 class="mb-0"><%=countItem%></h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0">
+              <div class="card-footer p-3">
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+ <%=countItem_processing%> </span>processing</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div
+                  class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">person</i>
+                </div>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">Invoices</p>
+                  <h4 class="mb-0"><%=countInvoice%></h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0">
+              <div class="card-footer p-3">
+                <p class="mb-0"><span class="text-danger text-sm font-weight-bolder"><%=countInvoiceNoDone%></span> awaiting ...</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div
+                  class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">weekend</i>
+                </div>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">Money</p>
+                  <h4 class="mb-0">$<%=sum_invoice!=null?sum_invoice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","):''%></h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0">
+              <div class="card-footer p-3">
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">$<%=total_invoice!=null?total_invoice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","):''%> </span>Total</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4 mb-4">
+          <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
+            <div class="card">
+              <div class="card-header pb-0">
+                <div class="row">
+                  <div class="col-lg-6 col-7">
+                    <h6>Process</h6>
+                  </div>
+                  <div class="col-lg-6 col-5 my-auto text-end">
+                    <div class="dropdown float-lg-end pe-4">
+                      <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-ellipsis-v text-secondary"></i>
+                      </a>
+                      <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
+                        <li><a class="dropdown-item border-radius-md" href="/stock/process">More</a></li>
+                        <!-- <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
+                        <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li> -->
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body px-0 pb-2">
+                <div class="table-responsive">
+                  <table class="table align-items-center mb-0">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Techpack</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">DueDay
+                        </th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Work Type
+                        </th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                          Status</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                          Note</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <%process.reverse().forEach(element=> { %>
+                        <tr>
+                          <td>
+                            <div class="d-flex px-2 py-1">
+                              <!-- <div> <img src="/dashboard/img/small-logos/logo-xd.svg" class="avatar avatar-sm me-3" alt="xd">
+                            </div> -->
+                              <div class="d-flex flex-column justify-content-center">
+
+                                <h6 class="mb-0 text-sm">
+                                  <!-- Button trigger modal -->
+                                 <%=element.techpackDetail.name%> 
+                                    
+                                </h6>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="mb-0 text-sm duedate">
+                              <%=element.duedate%>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="mb-0 text-sm duedate">
+                              <%=element.Type!=null?element.Type.name:''%>
+                            </div>
+                          </td>
+                          <td class="align-middle text-center text-sm">
+                            <span class="text-xs font-weight-bold">
+                              <% if (element.status==0) { %>
+                                Not started
+                                <% } else if (element.status==1) { %>
+                                  Open
+                                  <% } else if (element.status==2) { %>
+                                    Processing
+                                    <% } else if (element.status==3) { %>
+                                      On hold
+                                      <% } else if (element.status==4) { %>
+                                        Completed
+                                        <% } else if (element.status==5) { %>
+                                          Cancelled
+                                          <% } %>
+                            </span>
+                          </td>
+                          <td class="align-middle text-center text-sm">
+                            <a type="button" class="note" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                data-notex="<%= element.note %>"><i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                              </a>
+
+                          </td>
+                        </tr>
+                        <% } )%>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%- include('../../dashboard/common/bottom') %>
+      </div>
+    </main>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Note</h5>
+            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+      // Khi người dùng chọn tệp
+      document.getElementById('dropdownMenuButton').addEventListener('click', function (event) {
+        console.log('dropdownMenuButton click');
+        $.ajax({
+          url: '../notify/click', // Đường dẫn đến tập tin xử lý dữ liệu
+          type: 'POST',
+          data: 'click',
+          processData: false, // Không xử lý dữ liệu
+          contentType: false, // Không đặt kiểu dữ liệu
+          success: function (data) {
+            // Xử lý phản hồi từ máy chủ
+            console.log('Notify đã được update thành công:', data);
+            document.getElementById('notification_id').remove();
+          },
+          error: function () {
+            alert('Xin lỗi, có lỗi xảy ra');
+          }
+        });
+      });
+
+    </script>
+    <script>
+      var noteButtons = document.querySelectorAll('.note');
+      const modalBody = document.querySelector('.modal-body');
+      noteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const notexValue = button.getAttribute('data-notex');
+          console.log(`Giá trị của data-notex: ${notexValue}`);
+          modalBody.innerHTML = notexValue;
+        });
+      });
+    </script>
+    <%- include('../common/footer') %>

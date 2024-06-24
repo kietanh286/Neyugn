@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: C:\Users\Tran Tin\Workspace\github\Neyugn\sct\DockerFile
+    ports:
+      - "3040:3040"
+    # environment:
+    #   - NODE_ENV=development
+    volumes:
+      - .:/usr/src/app
+    command: npm start
+  
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: null
+      MYSQL_DATABASE: nodeadmin
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+  
+volumes:
+  db_data:
+    driver: local

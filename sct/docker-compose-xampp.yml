@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  xampp:
+    image: tomsik68/xampp
+    ports:
+      - "44162:22"
+      - "41063:80"
+    volumes:
+      # Mount your web pages
+      - ./xampp/my_pages:/www
+      # Mount your apache configuration
+      - ./xampp/my_apache_conf/:/opt/lampp/apache2/conf.d
+      #Save MySQL data to be persistent
+      # add the dbs as needed
+      - ./xampp/mysql/mydb:/opt/lampp/var/mysql/mydb
+    restart: always
